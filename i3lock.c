@@ -292,6 +292,10 @@ static void input_done(void) {
 #else
     if (pam_authenticate(pam_handle, 0) == PAM_SUCCESS) {
         DEBUG("successfully authenticated\n");
+
+        // To execute script after unlocking
+        int executecommand_status = system("onunlock_action");
+
         clear_password_memory();
 
         /* PAM credentials should be refreshed, this will for example update any kerberos tickets.
